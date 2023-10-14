@@ -1,4 +1,4 @@
-package lk.ijse.gdse63.aad.guide_service;
+package lk.ijse.gdse63.aad.guideservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class GuideServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GuideServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(GuideServiceApplication.class, args);
+    }
 
 }
