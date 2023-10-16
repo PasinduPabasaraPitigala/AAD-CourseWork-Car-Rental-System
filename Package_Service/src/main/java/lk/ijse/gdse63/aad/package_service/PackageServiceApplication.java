@@ -1,4 +1,4 @@
-package lk.ijse.gdse63.aad.packageservice;
+package lk.ijse.gdse63.aad.package_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

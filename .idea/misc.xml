@@ -11,6 +11,8 @@
         <option value="$PROJECT_DIR$/Service_Register/pom.xml" />
         <option value="$PROJECT_DIR$/Vehicle_Service/pom.xml" />
         <option value="$PROJECT_DIR$/Guide_Service/pom.xml" />
+        <option value="$PROJECT_DIR$/Package_Detail_Service/pom.xml" />
+        <option value="$PROJECT_DIR$/Package_Service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
