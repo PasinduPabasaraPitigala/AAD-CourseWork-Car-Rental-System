@@ -21,7 +21,7 @@ public class PackageDetailController {
     private PackageDetailService packageDetailService;
 
     @PostMapping(path = "/save",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response saveHotel(@RequestBody PackageDetailDTO packageDetailDTO){
+    public Response savePackageDetail(@RequestBody PackageDetailDTO packageDetailDTO){
         return packageDetailService.save(packageDetailDTO);
     }
 
