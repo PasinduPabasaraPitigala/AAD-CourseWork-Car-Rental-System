@@ -29,6 +29,10 @@ public class PackageServiceImpl implements PackageService {
     @Autowired
     private PackageRepo packageRepo;
 
+    private List<String> vehicleList;
+
+    private List<String> hotelList;
+
 
     @Override
     @PostMapping(path = "save",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,9 +64,9 @@ public class PackageServiceImpl implements PackageService {
 
     @Override
     public Response search(String s) {
-        Optional<Package> Package = packageRepo.findById(s);
+        Optional<Package> Packages = packageRepo.findById(s);
         if (package.isPresent()) {
-            return createAndSendResponse(HttpStatus.FOUND.value(), "Package Successfully retrieved!", modelMapper.map(package.get(), PackageDTO.class));
+            return createAndSendResponse(HttpStatus.FOUND.value(), "Package Successfully retrieved!", modelMapper.map(packages.get(), PackageDTO.class));
         }
         return createAndSendResponse(HttpStatus.NOT_FOUND.value(), "Package does not exists!", null);
     }
