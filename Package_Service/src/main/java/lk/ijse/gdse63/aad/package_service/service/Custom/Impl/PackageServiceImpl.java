@@ -65,8 +65,8 @@ public class PackageServiceImpl implements PackageService {
     @Override
     public Response search(String s) {
         Optional<Package> Packages = packageRepo.findById(s);
-        if (package.isPresent()) {
-            return createAndSendResponse(HttpStatus.FOUND.value(), "Package Successfully retrieved!", modelMapper.map(packages.get(), PackageDTO.class));
+        if (Packages.isPresent()) {
+            return createAndSendResponse(HttpStatus.FOUND.value(), "Package Successfully retrieved!", modelMapper.map(Packages.get(), PackageDTO.class));
         }
         return createAndSendResponse(HttpStatus.NOT_FOUND.value(), "Package does not exists!", null);
     }
@@ -76,7 +76,7 @@ public class PackageServiceImpl implements PackageService {
         List<Package> packages = packageRepo.findAll();
         if (!packages.isEmpty()) {
             ArrayList<PackageDTO> packageDTOS = new ArrayList<>();
-            packages.forEach((package) -> {
+            packages.forEach((Packages) -> {
                 packageDTOS.add(modelMapper.map(packages, PackageDTO.class));
             });
             return createAndSendResponse(HttpStatus.FOUND.value(), "Package Successfully retrieved!", packageDTOS);
