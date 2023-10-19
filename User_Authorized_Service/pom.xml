@@ -102,6 +102,24 @@
             <artifactId>spring-web</artifactId>
             <version>6.0.12</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>28.2-android</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>28.2-android</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>lk.ijse.gdse63.aad.vehicleservice</groupId>
+            <artifactId>vehicle_Service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
