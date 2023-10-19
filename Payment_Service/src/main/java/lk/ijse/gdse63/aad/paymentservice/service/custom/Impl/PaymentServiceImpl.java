@@ -5,15 +5,19 @@ import lk.ijse.gdse63.aad.paymentservice.dto.PaymentDTO;
 import lk.ijse.gdse63.aad.paymentservice.entity.Payment;
 import lk.ijse.gdse63.aad.paymentservice.repo.PaymentRepo;
 import lk.ijse.gdse63.aad.paymentservice.response.Response;
+import lk.ijse.gdse63.aad.paymentservice.service.custom.PaymentService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
-public class PackageServiceImpl implements PaymentService{
+public class PaymentServiceImpl implements PaymentService {
     @Autowired
     private Response response;
 
@@ -57,6 +61,7 @@ public class PackageServiceImpl implements PaymentService{
             return createAndSendResponse(HttpStatus.FOUND.value(), "Payment Successfully retrieved!", modelMapper.map(payment.get(), PaymentDTO.class));
         }
         return createAndSendResponse(HttpStatus.NOT_FOUND.value(), "Payment does not exists!", null);
+
     }
 
     @Override
@@ -69,7 +74,6 @@ public class PackageServiceImpl implements PaymentService{
         }
         throw new RuntimeException("payment cannot found!!!");
     }
-
 
     @Override
     public Response getAll() {
@@ -91,5 +95,4 @@ public class PackageServiceImpl implements PaymentService{
         response.setData(data);
         return response;
     }
-
 }

@@ -1,4 +1,4 @@
-package lk.ijse.gdse63.aad.serverregister;
+package lk.ijse.gdse63.aad.serviceregister;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

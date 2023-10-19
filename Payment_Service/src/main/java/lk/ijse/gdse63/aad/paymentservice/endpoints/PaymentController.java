@@ -2,6 +2,7 @@ package lk.ijse.gdse63.aad.paymentservice.endpoints;
 
 import lk.ijse.gdse63.aad.paymentservice.dto.PaymentDTO;
 import lk.ijse.gdse63.aad.paymentservice.response.Response;
+import lk.ijse.gdse63.aad.paymentservice.service.custom.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
