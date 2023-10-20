@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "GUIDE-SERVICE")
 public interface GuideControllerInterface {
-    @GetMa
-    pping(path = "/demo")
+    @GetMapping(path = "/demo")
     String getHello();
 
     @PostMapping(path = "/save",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
