@@ -1,6 +1,6 @@
 package lk.ijse.gdse63.aad.user_authorized_service.config;
 
-import com.mysql.cj.protocol.AuthenticationProvider;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.security.authentication.AuthenticationProvider;
 
 @Configuration
 @EnableWebSecurity

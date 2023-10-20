@@ -11,4 +11,5 @@ public interface PackagesControllerInterface {
 
     @PutMapping( value = "/getVehicleIdsForDelete",params = {"vehicleID","packageID"})
     public void getVehicleIdsForDeleteHotel(@RequestParam("vehicleID") String VehicleID, @RequestParam("packageID") String Packageid);
-}
+
+ }

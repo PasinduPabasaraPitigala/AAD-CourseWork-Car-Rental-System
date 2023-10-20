@@ -1,7 +1,9 @@
 package lk.ijse.gdse63.aad.user_authorized_service.endpoints;
 
-import feign.Response;
+
 import lk.ijse.gdse63.aad.user_authorized_service.dto.HotelDTO;
+import lk.ijse.gdse63.aad.user_authorized_service.interfaces.HotelControllerInterface;
+import lk.ijse.gdse63.aad.user_authorized_service.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

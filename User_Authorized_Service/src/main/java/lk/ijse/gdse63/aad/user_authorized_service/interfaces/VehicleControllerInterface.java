@@ -1,6 +1,7 @@
 package lk.ijse.gdse63.aad.user_authorized_service.interfaces;
 
-import feign.Response;
+
+import lk.ijse.gdse63.aad.user_authorized_service.response.Response;
 import lk.ijse.gdse63.aad.vehicleservice.dto.VehicleDTO;
 import lk.ijse.gdse63.aad.vehicleservice.entity.Vehicle;
 import org.springframework.cloud.openfeign.FeignClient;

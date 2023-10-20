@@ -56,6 +56,24 @@
             <version>3.1.1</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>lk.ijse.gdse63.aad.guideService</groupId>
+            <artifactId>guide_Service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>lk.ijse.gdse63.aad.hotelservice</groupId>
+            <artifactId>hotel_Service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>lk.ijse.gdse63.aad.User_Authorized_Service</groupId>
+            <artifactId>user_Authorized_Service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>

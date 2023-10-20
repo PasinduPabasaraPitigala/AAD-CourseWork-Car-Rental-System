@@ -3,6 +3,7 @@ package lk.ijse.gdse63.aad.hotelservice.service.custom.Impl;
 import jakarta.transaction.Transactional;
 import lk.ijse.gdse63.aad.hotelservice.dto.HotelDTO;
 import lk.ijse.gdse63.aad.hotelservice.entity.Hotel;
+import lk.ijse.gdse63.aad.hotelservice.interfaces.PackagesControllerInterface;
 import lk.ijse.gdse63.aad.hotelservice.repo.HotelRepo;
 import lk.ijse.gdse63.aad.hotelservice.response.Response;
 import lk.ijse.gdse63.aad.hotelservice.service.custom.HotelService;
@@ -28,6 +29,9 @@ public class HotelServiceImpl implements HotelService {
 
     @Autowired
     private HotelRepo hotelRepo;
+
+    @Autowired
+    private PackagesControllerInterface packagesControllerInterface;
 
 
     @Override
@@ -78,6 +82,27 @@ public class HotelServiceImpl implements HotelService {
             return createAndSendResponse(HttpStatus.FOUND.value(), "Hotel Successfully retrieved!", hotelDTOS);
         }
         throw new RuntimeException("No Hotel found in the database!");
+    }
+
+    @Override
+    public HotelDTO getHotel(String s) {
+        Optional<Hotel> hotel = hotelRepo.findById(s);
+
+        if (hotel.isPresent()) {
+            System.out.println(hotel.get());
+            return modelMapper.map(hotel.get(), HotelDTO.class);
+        }
+        throw new RuntimeException("hotel cannot found!!!");
+    }
+
+    @Override
+    public Response deleteHotels(List<String> hotelIds) {
+        System.out.println(hotelIds);
+        for (String hotelId : hotelIds) {
+            hotelRepo.deleteById(hotelId);
+            return createAndSendResponse(HttpStatus.OK.value(), "Hotel "+hotelIds+" deleted!", null);
+        }
+        return createAndSendResponse(HttpStatus.OK.value(), "ooppsss!", null);
     }
 
     @Override

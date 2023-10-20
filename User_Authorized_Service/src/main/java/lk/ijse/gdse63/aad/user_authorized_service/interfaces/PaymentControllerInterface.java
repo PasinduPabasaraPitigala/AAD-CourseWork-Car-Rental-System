@@ -1,10 +1,15 @@
 package lk.ijse.gdse63.aad.user_authorized_service.interfaces;
 
-import com.google.common.net.MediaType;
-import feign.Response;
+
+
 import lk.ijse.gdse63.aad.user_authorized_service.dto.PaymentDTO;
+import lk.ijse.gdse63.aad.user_authorized_service.model.Payment;
+import lk.ijse.gdse63.aad.user_authorized_service.response.Response;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @FeignClient(name = "PAYMENT-SERVICE")
 public interface PaymentControllerInterface {
