@@ -1,8 +1,9 @@
 package lk.ijse.gdse63.aad.package_detail_service.service.custom.Impl;
 
 import jakarta.transaction.Transactional;
-import lk.ijse.gdse63.aad.package_detail_service.dto.PackageDetailDTO;
+import lk.ijse.gdse63.aad.package_detail_service.dto.*;
 import lk.ijse.gdse63.aad.package_detail_service.entity.PackageDetail;
+import lk.ijse.gdse63.aad.package_detail_service.interfaces.*;
 import lk.ijse.gdse63.aad.package_detail_service.repo.PackageDetailRepo;
 import lk.ijse.gdse63.aad.package_detail_service.response.Response;
 import lk.ijse.gdse63.aad.package_detail_service.service.custom.PackageDetailService;
@@ -29,11 +30,25 @@ public class PackageDetailServiceImpl implements PackageDetailService {
     @Autowired
     private PackageDetailRepo packageDetailRepo;
 
+    @Autowired
+    private GuideControllerInterface guideControllerInterface;
+
+    @Autowired
+    private HotelControllerInterface hotelControllerInterface;
+
+    @Autowired
+    private PackageControllerInterface packageControllerInterface;
+
+    @Autowired
+    private UserControllerInterface userControllerInterface;
+
+    @Autowired
+    private VehicleControllerInterface vehicleControllerInterface;
 
     @Override
-    @PostMapping(path = "save",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    //@PostMapping(path = "save",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public Response save(PackageDetailDTO packageDetailDTO) {
-        if (search(packageDetailDTO.getPackageDetailId()).getData() == null) {
+        if (search(packageDetailDTO.getPackageDetailsId()).getData() == null) {
             packageDetailRepo.save(modelMapper.map(packageDetailDTO, PackageDetail.class));
             return createAndSendResponse(HttpStatus.OK.value(), "PackageDetail Successfully saved!", null);
         }
@@ -42,7 +57,7 @@ public class PackageDetailServiceImpl implements PackageDetailService {
 
     @Override
     public Response update(PackageDetailDTO packageDetailDTO) {
-        if (search(packageDetailDTO.getPackageDetailId()).getData() != null) {
+        if (search(packageDetailDTO.getPackageDetailsId() ).getData() != null) {
             packageDetailRepo.save(modelMapper.map(packageDetailDTO, PackageDetail.class));
             return createAndSendResponse(HttpStatus.OK.value(), "PackageDetail Successfully updated!", null);
         }
@@ -81,10 +96,71 @@ public class PackageDetailServiceImpl implements PackageDetailService {
     }
 
     @Override
+    public PackageDetailDTO getPackageDetail(String s) {
+        Optional<PackageDetail> packageDetail = packageDetailRepo.findById(s);
+
+        if (packageDetail.isPresent()) {
+            System.out.println(packageDetail.get());
+            return modelMapper.map(packageDetail.get(), PackageDetailDTO.class);
+        }
+        throw new RuntimeException("packagedetail cannot found!!!");
+    }
+
+    @Override
     public Response createAndSendResponse(int statusCode, String message, Object data) {
         response.setStatusCode(statusCode);
         response.setMessage(message);
         response.setData(data);
         return response;
+    }
+
+    public GuideDTO getGuide(String s){
+        Optional<PackageDetail> packageDetail = packageDetailRepo.findById(s);
+
+        if (packageDetail.isPresent()){
+            return guideControllerInterface.getGuideDTO(packageDetail.get().getGuideId());
+        }
+
+        throw new RuntimeException("Cannot find package detail");
+    }
+
+    public HotelDTO getHotel(String s){
+        Optional<PackageDetail> packageDetail = packageDetailRepo.findById(s);
+
+        if (packageDetail.isPresent()){
+            return hotelControllerInterface.getHotel(packageDetail.get().getHotelId());
+        }
+
+        throw new RuntimeException("Cannot find hotel");
+    }
+
+    public PackagesDTO getPackage(String s){
+        Optional<PackageDetail> packageDetail = packageDetailRepo.findById(s);
+
+        if (packageDetail.isPresent()){
+            return packageControllerInterface.getPackage(packageDetail.get().getPackageId());
+        }
+
+        throw new RuntimeException("Cannot find package");
+    }
+
+    public UserDetailsDTO getUser(String s){
+        Optional<PackageDetail> packageDetail = packageDetailRepo.findById(s);
+
+        if (packageDetail.isPresent()){
+            return userControllerInterface.getUserDetail(packageDetail.get().getUserId());
+        }
+
+        throw new RuntimeException("Cannot find user");
+    }
+
+    public VehicleDTO getVehicle(String s){
+        Optional<PackageDetail> packageDetail = packageDetailRepo.findById(s);
+
+        if (packageDetail.isPresent()){
+            return vehicleControllerInterface.getVehicle(packageDetail.get().getVehicleId());
+        }
+
+        throw new RuntimeException("Cannot find vehicle");
     }
 }

@@ -1,6 +1,6 @@
 package lk.ijse.gdse63.aad.package_detail_service.interfaces;
 
-import lk.ijse.gdse63.aad.vehicleservice.dto.PackagesDTO;
+import lk.ijse.gdse63.aad.package_detail_service.dto.PackagesDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

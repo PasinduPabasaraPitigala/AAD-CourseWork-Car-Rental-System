@@ -8,23 +8,22 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
-@CrossOrigin
+@RequestMapping("")
+@CrossOrigin("http://localhost:8081")
 public class PackageDetailController {
 
-    @GetMapping(path = "/demo")
+/*    @GetMapping(path = "/demo")
     public String getHello(){
         return "Heeeii";
-    }
+    }*/
 
     @Autowired
     private PackageDetailService packageDetailService;
 
-    @PostMapping(path = "/save",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response savePackageDetail(@RequestBody PackageDetailDTO packageDetailDTO){
+    @PostMapping(path = "/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Response savePackageDetail(@RequestBody PackageDetailDTO packageDetailDTO) {
         return packageDetailService.save(packageDetailDTO);
     }
-
     @PutMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Response update(@RequestBody PackageDetailDTO packageDetailDTO) {
         return packageDetailService.update(packageDetailDTO);
@@ -38,6 +37,11 @@ public class PackageDetailController {
     @DeleteMapping(path = "/delete", params = "hotelId", produces = MediaType.APPLICATION_JSON_VALUE)
     public Response delete(@RequestParam("packageDetailId") String packageDetailId) {
         return packageDetailService.delete(packageDetailId);
+    }
+
+    @GetMapping(path = "/getPackageDetail")
+    public PackageDetailDTO getPackageDetail(@RequestParam("packageDetailId") String packageDetailId) {
+        return packageDetailService.getPackageDetail(packageDetailId);
     }
 
     @GetMapping(path = "/fetchAll", produces = MediaType.APPLICATION_JSON_VALUE)
