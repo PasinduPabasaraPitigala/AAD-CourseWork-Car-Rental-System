@@ -19,4 +19,5 @@ public class GuideDTO implements SuperDTO {
     private String guideIDImageLocation;
     private String guideExperience;
     private String manDayValue;
+    private String remarks;
 }

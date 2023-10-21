@@ -1,6 +1,7 @@
 package lk.ijse.gdse63.aad.vehicleservice.interfaces;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -12,4 +13,7 @@ public interface PackagesControllerInterface {
     @PutMapping( value = "/getVehicleIdsForDelete",params = {"vehicleID","packageID"})
     public void getVehicleIdsForDeleteHotel(@RequestParam("vehicleID") String VehicleID, @RequestParam("packageID") String Packageid);
 
- }
+
+
+
+}

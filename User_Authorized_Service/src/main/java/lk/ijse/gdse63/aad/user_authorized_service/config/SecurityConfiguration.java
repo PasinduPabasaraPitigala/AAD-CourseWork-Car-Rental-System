@@ -26,13 +26,13 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        RequestMatcher matcher= new AntPathRequestMatcher("/api/v1/auth/register");
+     /*   RequestMatcher matcher= new AntPathRequestMatcher("/api/v1/auth/register");*/
 
         http
 
                 .csrf()
                 .disable().authorizeRequests()
-                .requestMatchers(matcher)
+                .requestMatchers("/api/v1/auth/register")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

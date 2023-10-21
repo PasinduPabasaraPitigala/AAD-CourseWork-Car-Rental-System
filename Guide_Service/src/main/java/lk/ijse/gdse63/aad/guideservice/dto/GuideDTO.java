@@ -21,5 +21,6 @@ public class GuideDTO implements Serializable,SuperDTO{
     private String guideIDImageLocation;
     private String guideExperience;
     private String manDayValue;
+    private String remarks;
 
 }

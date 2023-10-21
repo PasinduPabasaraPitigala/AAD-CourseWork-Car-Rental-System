@@ -6,6 +6,7 @@ import lk.ijse.gdse63.aad.user_authorized_service.interfaces.HotelControllerInte
 import lk.ijse.gdse63.aad.user_authorized_service.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,28 +17,34 @@ public class HotelController {
     @Autowired
     private HotelControllerInterface hotelControllerInterface;
 
-    @PostMapping(path = "/sh",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response saveHotel(@RequestBody HotelDTO hotelDTO){
-        return hotelControllerInterface.saveHotel(hotelDTO);
-    }
+    @PostMapping(path = "/save",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response> saveHotel(@RequestBody   HotelDTO hotelDTO){
+        System.out.println("hotelDTO"+hotelDTO.toString());
+        return  hotelControllerInterface.saveHotel(hotelDTO);
 
-    @PutMapping(path = "/updateHotel", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response update(@RequestBody HotelDTO hotelDTO) {
-        return hotelControllerInterface.update(hotelDTO);
     }
+    @PutMapping(path = "/update",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response>updateHotel(@RequestBody HotelDTO hotelDTO){
+        return  hotelControllerInterface.updateHotel(hotelDTO);
 
-    @GetMapping(path = "/searchHotel", params = "hotelId", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response search(@RequestParam("hotelId") String hotelId) {
-        return hotelControllerInterface.search(hotelId);
     }
+    @GetMapping(path = "/search",params = "hotelID",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response>searchHotel(@RequestParam("hotelID")String hotelID ){
+        return  hotelControllerInterface.searchHotel(hotelID);
 
-    @DeleteMapping(path = "/deleteHotel", params = "hotelId", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response delete(@RequestParam("hotelId") String hotelId) {
-        return hotelControllerInterface.delete(hotelId);
     }
+    @DeleteMapping(path = "/delete",params = "hotelID",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response>deleteHotel(@RequestParam("hotelID")String hotelID ){
+        return  hotelControllerInterface.deleteHotel(hotelID);
 
-    @GetMapping(path = "/fetchAllHotel", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response getAll() {
-        return hotelControllerInterface.getAll();
+    }
+    @GetMapping(path = "/getAll",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response>searchHotel(){
+        return  hotelControllerInterface.getAllHotels();
+
+    }
+    @GetMapping(path = "/getHotelByName",params = "hotelName",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response>getHotelByNName(@RequestParam("hotelName") String hotelName) {
+        return hotelControllerInterface.getHotelByName(hotelName);
     }
 }

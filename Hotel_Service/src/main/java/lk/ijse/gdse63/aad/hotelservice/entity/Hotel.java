@@ -15,16 +15,24 @@ import java.io.Serializable;
 @Data
 public class Hotel {
     @Id
-        private String hotelId;
-        private String packageId;
-        private String hotelName;
-        private String hotelCategory;
-        private String hotelLocation;
-        private String hotelLocationWithCordinates;
-        private String hotelContactEmail;
-        private String hotelContactNumber;
-        private String petsAllowedOrNot;
-        private String hotelFee;
-        private String cancellationCriteria;
-        private String Remark;
+
+    private String hotelId;
+    private String hotelName;
+    private String hotelCategory;
+    private String hotelLocation;
+    private String hotelLocationWithCoordinates;
+    private String hotelImageLocation;
+    private String hotelContactEmail;
+    private String hotelContact1;
+    private String hotelContact2;
+    private double fullBoardWithACLuxuryRoomDouble;
+    private double halfBoardWithACLuxuryRoomDouble;
+    private double fullBoardWithACLuxuryRoomTriple;
+    private double halfBoardWithACLuxuryRoomTriple;
+    private boolean isPetsAllowed;
+    private double hotelFee;
+    private String cancellationCriteria;
+    private String remarks;
+
+    private String packageId;
 }

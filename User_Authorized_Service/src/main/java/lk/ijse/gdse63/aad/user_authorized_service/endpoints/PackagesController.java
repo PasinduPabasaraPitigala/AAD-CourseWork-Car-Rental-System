@@ -2,13 +2,15 @@ package lk.ijse.gdse63.aad.user_authorized_service.endpoints;
 
 
 import lk.ijse.gdse63.aad.user_authorized_service.dto.PackagesDTO;
+import lk.ijse.gdse63.aad.user_authorized_service.interfaces.PackagesControllerInterface;
 import lk.ijse.gdse63.aad.user_authorized_service.model.Packages;
 import lk.ijse.gdse63.aad.user_authorized_service.response.Response;
-import lk.ijse.gdse63.aad.vehicleservice.interfaces.PackagesControllerInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -18,33 +20,39 @@ public class PackagesController {
     @Autowired
     private PackagesControllerInterface packagesControllerInterface;
 
-    @PostMapping(path = "/savePackage", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Response save(@RequestBody PackagesDTO packagesDTO) {
-        return packagesControllerInterface.save(packagesDTO);
-    }
+    @PostMapping(path = "/save",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response>add(@RequestBody PackagesDTO packagesDTO){
+        return  packagesControllerInterface.save(packagesDTO);
 
-    @PutMapping(path = "/updatePackage", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response update(@RequestBody PackagesDTO packagesDTO) {
+    }
+    @PutMapping(path = "/update",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response>update(@RequestBody PackagesDTO packagesDTO){
         return packagesControllerInterface.update(packagesDTO);
-    }
 
-    @GetMapping(path = "/searchPackage", params = "packagesId", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response search(@RequestParam("packagesId") String packagesId) {
-        return packagesControllerInterface.search(packagesId);
     }
+    @GetMapping(path = "/search",produces = MediaType.APPLICATION_JSON_VALUE,params = "packageID")
+    public ResponseEntity<Response>search(@RequestParam("packageID")String packageID){
+        return packagesControllerInterface.search(packageID);
 
-    @DeleteMapping(path = "/deletePackage", params = "packagesId", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response delete(@RequestParam("packagesId") String packagesId) {
-        return packagesControllerInterface.delete(packagesId);
     }
+    @DeleteMapping(path = "/delete",produces = MediaType.APPLICATION_JSON_VALUE,params = "packageID")
+    public ResponseEntity<Response>delete(@RequestParam("packageID")String packageID){
+        System.out.println("packageID = " + packageID);
+        return packagesControllerInterface.delete(packageID);
 
-    @GetMapping(path = "/getPackage", params = "packagesId", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<Packages> getPackage(@RequestParam("packagesId") String packagesId) {
-        return packagesControllerInterface.getPackage(packagesId);
     }
+    @GetMapping(path = "/getAll",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response>getAll(){
+        return  packagesControllerInterface.getAllPackages();
 
-    @GetMapping(path = "/fetchAllPackages", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response getAll() {
-        return packagesControllerInterface.getAll();
+    }
+    @GetMapping(path = "/getAllIDs")
+    public List<String>getAllPackageIDs(){
+        return packagesControllerInterface.getAllPackageIDs();
+    }
+    @GetMapping(path = "/getPackageByCategory",produces = MediaType.APPLICATION_JSON_VALUE,params = "category")
+    public ResponseEntity<Response>getPackageByCategory(@RequestParam("category")String category){
+        return  packagesControllerInterface.getPackageByCategory(category);
+
     }
 }

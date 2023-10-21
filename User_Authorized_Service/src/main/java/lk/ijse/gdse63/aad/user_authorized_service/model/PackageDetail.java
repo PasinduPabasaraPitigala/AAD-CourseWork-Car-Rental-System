@@ -6,28 +6,33 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
 public class PackageDetail {
     @Id
-    private String packageDetailId;
+    private String packageDetailsId;
+    private String packageId;
     private String packageCategory;
-    private String travelDuration;
+    private String hotelId;
+    private String vehicleId;
+    private Date startDate;
+    private Date endDate;
+    private int noOfDays;
     private String travelArea;
     private int noOfAdults;
     private int noOfChildren;
     private int totalHeadCount;
-    private boolean withPetsOrNot;
-    private boolean isGuideIncluded;
-    private Double packageValue;
-    private Double paidValue;
-    private String vehicleId;
-    private String hotelId;
+    private  boolean petsStatus;
+    private  boolean guideStatus;
     private String guideId;
-    private String packageId;
-    private String userId;
+    private  double totalPackageValue;
+    private  String userId;
+    private double paidValue;
+    private String remarks;
 
 
 

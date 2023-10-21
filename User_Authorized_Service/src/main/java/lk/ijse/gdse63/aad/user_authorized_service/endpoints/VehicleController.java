@@ -7,6 +7,7 @@ import lk.ijse.gdse63.aad.user_authorized_service.model.Vehicle;
 import lk.ijse.gdse63.aad.user_authorized_service.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -16,35 +17,37 @@ import java.util.Optional;
 @CrossOrigin
 public class VehicleController {
     @Autowired
-    private VehicleControllerInterface vehicleService;
+    private VehicleControllerInterface  vehicleControllerInterface;
 
-    @PostMapping(path = "/sv", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Response saveVehicle(@RequestBody VehicleDTO vehicleDTO) {
-        return vehicleService.saveVehicle(vehicleDTO);
+    @PostMapping(path = "/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response> save(@RequestBody   VehicleDTO vehicleDTO) {
+        return  vehicleControllerInterface.addVehicle(vehicleDTO);
+
     }
-
     @PutMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response update(@RequestBody VehicleDTO vehicleDTO) {
-        return vehicleService.update(vehicleDTO);
+    public ResponseEntity<Response> update(@RequestBody   VehicleDTO vehicleDTO) {
+        return  vehicleControllerInterface.updateVehicle(vehicleDTO);
+
+    }
+    @GetMapping(path = "/search",produces = MediaType.APPLICATION_JSON_VALUE,params = "vehicleID")
+    public ResponseEntity<Response>getVehicle(@RequestParam("vehicleID")String vehicleID){
+        return  vehicleControllerInterface.searchVehicle(vehicleID);
+
     }
 
-    @GetMapping(path = "/search", params = "vehicleId", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response search(@RequestParam("vehicleId") String vehicleId) {
-        return vehicleService.search(vehicleId);
-    }
+    @DeleteMapping(path = "/delete",produces = MediaType.APPLICATION_JSON_VALUE,params = "vehicleID")
+    public ResponseEntity<Response>deleteVehicle(@RequestParam("vehicleID")String vehicleID){
+        return  vehicleControllerInterface.deleteVehicle(vehicleID);
 
-    @DeleteMapping(path = "/delete", params = "vehicleId", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response delete(@RequestParam("vehicleId") String vehicleId) {
-        return vehicleService.delete(vehicleId);
     }
+    @GetMapping(path = "/getAll",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response>getAll(){
+        return  vehicleControllerInterface.getAllVehicles();
 
-    @GetMapping(path = "/getPackage", params = "vehicleId", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<Vehicle> getPackage(@RequestParam("vehicleId") String vehicleId) {
-        return vehicleService.getVehicle(vehicleId);
     }
+    @GetMapping(path = "/getVehicleByBrand",params = "vehicleBrand",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response>getVehicleByBrand(@RequestParam("vehicleBrand")String vehicleBrand){
+        return  vehicleControllerInterface.getVehicleByBrand(vehicleBrand);
 
-    @GetMapping(path = "/fetchAll", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response getAll() {
-        return vehicleService.getAll();
     }
 }

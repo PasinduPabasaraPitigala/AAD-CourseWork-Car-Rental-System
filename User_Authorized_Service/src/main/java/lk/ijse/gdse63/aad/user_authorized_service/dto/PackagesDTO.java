@@ -15,4 +15,6 @@ public class PackagesDTO implements Serializable, SuperDTO {
     private String packageCategory;
     private String vehicleCategory;
     private String hotelCategory;
+    private String hotelIdList;
+    private String vehicleIdList;
 }

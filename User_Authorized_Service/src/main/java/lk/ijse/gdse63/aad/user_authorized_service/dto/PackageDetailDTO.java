@@ -6,25 +6,29 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class PackageDetailDTO implements SuperDTO, Serializable {
-    private String packageDetailId;
+    private String packageDetailsId;
+    private String packageId;
     private String packageCategory;
-    private String travelDuration;
+    private String hotelId;
+    private String vehicleId;
+    private Date startDate;
+    private Date endDate;
+    private int noOfDays;
     private String travelArea;
     private int noOfAdults;
     private int noOfChildren;
     private int totalHeadCount;
-    private boolean withPetsOrNot;
-    private boolean isGuideIncluded;
-    private double packageValue;
-    private double paidValue;
-    private String vehicleId;
-    private String hotelId;
+    private  boolean petsStatus;
+    private  boolean guideStatus;
     private String guideId;
-    private String packageId;
-    private String userId;
+    private  double totalPackageValue;
+    private  String userId;
+    private double paidValue;
+    private String remarks;
 }

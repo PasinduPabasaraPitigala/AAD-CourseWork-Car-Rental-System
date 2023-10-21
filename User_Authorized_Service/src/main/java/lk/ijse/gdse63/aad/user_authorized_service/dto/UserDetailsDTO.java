@@ -1,6 +1,7 @@
 package lk.ijse.gdse63.aad.user_authorized_service.dto;
 
 import jakarta.persistence.Enumerated;
+import lk.ijse.gdse63.aad.user_authorized_service.model.Roles;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,5 +24,5 @@ public class UserDetailsDTO  implements SuperDTO{
     private String gender;
     private String userNICimageLocation;
     private String userImageLocation;
-
+    private boolean isAuthenticated;
 }

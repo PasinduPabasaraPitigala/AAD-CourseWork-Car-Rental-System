@@ -11,19 +11,24 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 public class HotelDTO  implements Serializable, SuperDTO {
-    private String hotelID;
+
+    private String hotelId;
     private String hotelName;
-    private String hotelCatageory;
+    private String hotelCategory;
     private String hotelLocation;
     private String hotelLocationWithCoordinates;
-    private String hotelEmail;
-    private String hotelContactNumber;
+    private String hotelImageLocation;
+    private String hotelContactEmail;
+    private String hotelContact1;
+    private String hotelContact2;
+    private double fullBoardWithACLuxuryRoomDouble;
+    private double halfBoardWithACLuxuryRoomDouble;
+    private double fullBoardWithACLuxuryRoomTriple;
+    private double halfBoardWithACLuxuryRoomTriple;
     private boolean isPetsAllowed;
-    private double FullBoardDoublehotelFee;
-    private double HalfBoardDoublehotelFee;
-    private double FullBoardTriplehotelFee;
-    private double HalfBoardTriplehotelFee;
+    private double hotelFee;
     private String cancellationCriteria;
+    private String remarks;
 
     private String packageId;
 }

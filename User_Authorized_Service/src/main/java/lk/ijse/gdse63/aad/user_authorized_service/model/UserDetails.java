@@ -35,6 +35,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
     private String gender;
     private String userNICimageLocation;
     private String userImageLocation;
+    private boolean isAuthenticated;
 
     @ElementCollection
     private List<String> packageDetailsList;
