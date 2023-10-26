@@ -1,24 +1,20 @@
 package lk.ijse.gdse63.aad.hotelservice.service;
 
-import lk.ijse.gdse63.aad.hotelservice.dto.HotelDTO;
+import lk.ijse.gdse63.aad.hotelservice.dto.SuperDTO;
 import lk.ijse.gdse63.aad.hotelservice.response.Response;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public interface SuperService <T extends HotelDTO,ID> {
-    Response save(HotelDTO hotelDTO);
+public interface SuperService <T extends SuperDTO,ID> {
+    ResponseEntity<Response> add(T t);
 
-    Response update(HotelDTO hotelDTO);
+    ResponseEntity<Response> update(T t);
 
-    Response search(String hotelId);
+    ResponseEntity<Response> search(ID id);
 
-    Response delete(String hotelId);
+    ResponseEntity<Response> delete(ID id);
 
-    Response getAll();
-
-    HotelDTO getHotel(ID id);
-
-    Response deleteHotels(List<String> hotelList);
-
-    Response createAndSendResponse(int statusCode, String message,Object data);
+    ResponseEntity<Response> getAll();
+    ResponseEntity<Response> createAndSendResponse(int statusCode,String msg,Object data);
 }

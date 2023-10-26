@@ -1,18 +1,21 @@
 package lk.ijse.gdse63.aad.guideservice.service;
 
 import lk.ijse.gdse63.aad.guideservice.dto.GuideDTO;
+import lk.ijse.gdse63.aad.guideservice.dto.SuperDTO;
 import lk.ijse.gdse63.aad.guideservice.response.Response;
+import org.springframework.http.ResponseEntity;
 
 public interface SuperService<T extends GuideDTO,ID>{
-    Response save(T t);
+    ResponseEntity<Response> search(String id);
 
-    Response update(T t);
+    ResponseEntity <Response>save(T t);
 
-    Response search(ID id);
+    ResponseEntity <Response> update(T t);
 
-    Response delete(ID id);
+    ResponseEntity<Response> findByGuideName(String guideName);
 
-    Response getAll();
+    ResponseEntity <Response> delete(String id);
 
-    Response createAndSendResponse(int statusCode,String message , Object data);
+    ResponseEntity <Response>getAll();
+    ResponseEntity<Response> createAndSendResponse(int statusCode, String msg, Object data);
 }

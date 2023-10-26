@@ -9,7 +9,9 @@ import lk.ijse.gdse63.aad.guideservice.service.custom.GuideService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -31,60 +33,75 @@ public class GuideServiceImpl implements GuideService {
     private GuideRepo guideRepo;
 
     @Override
-    @PostMapping(path = "save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response save(GuideDTO guideDTO) {
-        if (search(guideDTO.getGuideId()).getData() == null) {
-            guideRepo.save(modelMapper.map(guideDTO, Guide.class));
-            return createAndSendResponse(HttpStatus.OK.value(), "Guide Successfully saved!", null);
+    public ResponseEntity<Response> search(String id) {
+        Optional<Guide>guideEntity=guideRepo.findById(id);
+        if (guideEntity.isPresent()){
+            return createAndSendResponse(HttpStatus.FOUND.value(),"Success service",modelMapper.map(guideEntity.get(),GuideDTO.class));
         }
-        throw new RuntimeException("Guide already exists!");
+        return createAndSendResponse(HttpStatus.NOT_EXTENDED.value(), "Error",null);
     }
 
     @Override
-    public Response update(GuideDTO guideDTO) {
-        if (search(guideDTO.getGuideId()).getData() != null) {
-            guideRepo.save(modelMapper.map(guideDTO, Guide.class));
-            return createAndSendResponse(HttpStatus.OK.value(), "Guide Successfully updated!", null);
+    public ResponseEntity<Response> save(GuideDTO guideDto) {
+        if (search(guideDto.getGuideID()).getBody().getData()==null){
+            guideRepo.save(modelMapper.map(guideDto,Guide.class));
+            return createAndSendResponse(HttpStatus.OK.value(),"Success", null);
         }
-        throw new RuntimeException("Guide does not exists!");
+        throw new RuntimeException(" no save guide");
     }
 
     @Override
-    public Response delete(String s) {
-        if (search(s).getData() != null) {
-            guideRepo.deleteById(s);
-            return createAndSendResponse(HttpStatus.OK.value(), "Guide Successfully deleted!", null);
+    public ResponseEntity<Response> update(GuideDTO guideDto) {
+        if (search(guideDto.getGuideID()).getBody().getData()!=null){
+            guideRepo.save(modelMapper.map(guideDto,Guide.class));
+            return createAndSendResponse(HttpStatus.OK.value(), "Success",null);
         }
-        throw new RuntimeException("Guide does not exists!");
+        throw new RuntimeException("No update found guide");
     }
 
     @Override
-    public Response search(String s) {
-        Optional<Guide> guide = guideRepo.findById(s);
-        if (guide.isPresent()) {
-            return createAndSendResponse(HttpStatus.FOUND.value(), "Guide Successfully retrieved!", modelMapper.map(guide.get(), GuideDTO.class));
+    public ResponseEntity<Response> findByGuideName(String guideName) {
+        Optional<Guide> guideEntity = guideRepo.findByGuideName(guideName);
+        if (guideEntity.isPresent()) {
+            return createAndSendResponse(HttpStatus.OK.value(), "Hotel Successfully retrieved!", modelMapper.map(guideEntity.get(), GuideDTO.class));
+
         }
-        return createAndSendResponse(HttpStatus.NOT_FOUND.value(), "Guide does not exists!", null);
+        return createAndSendResponse(HttpStatus.NOT_FOUND.value(), "Hotel Not Found!", null);
+    }
+
+
+    @Override
+    public ResponseEntity<Response> delete(String id) {
+        if (search(id).getBody().getData()!=null){
+            guideRepo.deleteById(id);
+            return createAndSendResponse(HttpStatus.OK.value(),"Sucess delete guide",null);
+        }
+        throw new RuntimeException("no delete in guide");
     }
 
     @Override
-    public Response getAll() {
-        List<Guide> guides = guideRepo.findAll();
-        if (!guides.isEmpty()) {
-            ArrayList<GuideDTO> guides_dtos = new ArrayList<>();
-            guides.forEach((guidess) -> {
-                guides_dtos.add(modelMapper.map(guidess, GuideDTO.class));
+    public ResponseEntity<Response> getAll() {
+        List<Guide>guideEntities=guideRepo.findAll();
+        if (guideEntities.isEmpty()){
+            ArrayList<GuideDTO>arrayList=new ArrayList<>();
+            guideEntities.forEach(guideEntity -> {
+                arrayList.add(modelMapper.map(guideEntity,GuideDTO.class));
             });
-            return createAndSendResponse(HttpStatus.FOUND.value(), "Guides Successfully retrieved!", guides_dtos);
+            return createAndSendResponse(HttpStatus.OK.value(), "Find all Success",null);
         }
-        throw new RuntimeException("No Guides found in the database!");
+        throw new RuntimeException("Find guide all error");
     }
 
     @Override
-    public Response createAndSendResponse(int statusCode, String message, Object data) {
+    public ResponseEntity<Response> createAndSendResponse(int statusCode, String msg, Object data) {
         response.setStatusCode(statusCode);
-        response.setMessage(message);
+        response.setMessage(msg);
         response.setData(data);
-        return response;
+        System.out.println("Status Code : " + statusCode);
+        System.out.println("Sent : " + HttpStatus.valueOf(statusCode));
+
+        return new ResponseEntity<Response>(response, HttpStatusCode.valueOf(statusCode));
+
     }
+
 }

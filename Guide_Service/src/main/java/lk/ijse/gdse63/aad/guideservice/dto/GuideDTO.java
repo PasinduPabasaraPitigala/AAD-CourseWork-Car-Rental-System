@@ -1,6 +1,7 @@
 package lk.ijse.gdse63.aad.guideservice.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,18 +10,32 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class GuideDTO implements Serializable,SuperDTO{
-    private String guideId;
+@Builder
+public class GuideDTO implements Serializable{
+
+
+    private String guideID;
+
     private String guideName;
+
     private String guideAddress;
-    private int guideAge;
-    private String gender;
-    private String guideContact;
-    private String guideImageLocation;
-    private String guideNICImageLocation;
-    private String guideIDImageLocation;
+
+    private String guideAge;
+
+    private String guideGender;
+
+    private String guidePICIMGLocation;
+
+    private String guideNICIMGLocation;
+
+    private String guideIDIMGLocation;
+
     private String guideExperience;
-    private String manDayValue;
-    private String remarks;
+
+    private int manDayValue;
+
+
+    private String remark;
+
 
 }

@@ -1,27 +1,45 @@
 package lk.ijse.gdse63.aad.guideservice.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
+@Builder
+@Entity
 public class Guide {
     @Id
-    private String guideId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String guideID;
+
     private String guideName;
+
     private String guideAddress;
-    private int guideAge;
-    private String gender;
-    private int guideContact;
-    private String guideImageLocation;
-    private String guideNICImageLocation;
-    private String guideIDImageLocation;
+
+    private String guideAge;
+
+    private String guideGender;
+
+    private String guidePICIMGLocation;
+
+    private String guideNICIMGLocation;
+
+    private String guideIDIMGLocation;
+
     private String guideExperience;
-    private String manDayValue;
-    private String remarks;
+
+    private int manDayValue;
+
+
+    private String remark;
+
+    //others
+    private String package_id;
 }

@@ -1,9 +1,9 @@
 package lk.ijse.gdse63.aad.hotelservice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lk.ijse.gdse63.aad.hotelservice.dto.SuperDTO;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,9 +13,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Table
+@Builder
 public class Hotel {
     @Id
-
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String hotelId;
     private String hotelName;
     private String hotelCategory;

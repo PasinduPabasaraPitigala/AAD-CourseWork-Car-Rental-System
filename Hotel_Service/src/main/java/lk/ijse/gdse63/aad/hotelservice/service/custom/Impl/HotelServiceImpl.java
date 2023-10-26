@@ -10,7 +10,9 @@ import lk.ijse.gdse63.aad.hotelservice.service.custom.HotelService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -35,81 +37,102 @@ public class HotelServiceImpl implements HotelService {
 
 
     @Override
-    @PostMapping(path = "save",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response save(HotelDTO hotelDTO) {
-        if (search(hotelDTO.getHotelId()).getData() == null) {
+    public ResponseEntity<Response> add(HotelDTO hotelDTO) {
+        if (search(hotelDTO.getHotelId()).getBody().getData() == null) {
             hotelRepo.save(modelMapper.map(hotelDTO, Hotel.class));
-            return createAndSendResponse(HttpStatus.OK.value(), "Hotel Successfully saved!", null);
+            HotelDTO dto = (HotelDTO) findByHotelName(hotelDTO.getHotelName()).getBody().getData();
+            packagesControllerInterface.saveHotelID(hotelDTO.getPackageId(), dto.getHotelId());
+            return createAndSendResponse(HttpStatus.CREATED.value(), "Hotel Successfully saved!", true);
+
         }
-        throw new RuntimeException("Hotel already exists!");
+        return createAndSendResponse(HttpStatus.CONFLICT.value(), "Hotel Already Exists!", false);
     }
 
     @Override
-    public Response update(HotelDTO hotelDTO) {
-        if (search(hotelDTO.getHotelId()).getData() != null) {
-            hotelRepo.save(modelMapper.map(hotelDTO, Hotel.class));
-            return createAndSendResponse(HttpStatus.OK.value(), "Hotel Successfully updated!", null);
+    public ResponseEntity<Response> update(HotelDTO hotelDTO) {
+        if (search(hotelDTO.getHotelId()).getBody().getData() == null) {
+            return createAndSendResponse(HttpStatus.NOT_FOUND.value(), "Hotel Not Found!", null);
+
         }
-        throw new RuntimeException("Hotel does not exists!");
+        Optional<Hotel> hotelDto = hotelRepo.findById(hotelDTO.getHotelId());
+        if (hotelDto.isPresent()) {
+            packagesControllerInterface.updateHotelPackageId(hotelDto.get().getPackageId(), hotelDTO.getPackageId(), hotelDTO.getHotelId());
+            hotelRepo.save(modelMapper.map(hotelDTO,Hotel.class));
+
+
+        }
+        return createAndSendResponse(HttpStatus.OK.value(), "Hotel Successfully updated!", null);
+
+
     }
 
     @Override
-    public Response delete(String s) {
-        if (search(s).getData() != null) {
-            hotelRepo.deleteById(s);
-            return createAndSendResponse(HttpStatus.OK.value(), "Hotel Successfully deleted!", null);
-        }
-        throw new RuntimeException("Hotel does not exists!");
-    }
-
-    @Override
-    public Response search(String s) {
+    public ResponseEntity<Response> search(String s) {
         Optional<Hotel> hotel = hotelRepo.findById(s);
         if (hotel.isPresent()) {
-            return createAndSendResponse(HttpStatus.FOUND.value(), "Hotel Successfully retrieved!", modelMapper.map(hotel.get(), HotelDTO.class));
+            return createAndSendResponse(HttpStatus.OK.value(), "Hotel Successfully retrieved!", modelMapper.map(hotel.get(), HotelDTO.class));
+
         }
-        return createAndSendResponse(HttpStatus.NOT_FOUND.value(), "Hotel does not exists!", null);
+        return createAndSendResponse(HttpStatus.NOT_FOUND.value(), "Hotel Not Found!", null);
     }
 
     @Override
-    public Response getAll() {
+    public ResponseEntity<Response> delete(String s) {
+        if (search(s).getBody().getData() == null) {
+            return createAndSendResponse(HttpStatus.NOT_FOUND.value(), "Hotel Not Found!", null);
+
+        }
+        hotelRepo.deleteById(s);
+        return createAndSendResponse(HttpStatus.OK.value(), "Hotel Successfully deleted!", null);
+
+
+    }
+
+    @Override
+    public ResponseEntity<Response> getAll() {
         List<Hotel> hotels = hotelRepo.findAll();
         if (!hotels.isEmpty()) {
-            ArrayList<HotelDTO> hotelDTOS = new ArrayList<>();
+            List<HotelDTO> hotelDTOS = new ArrayList<>();
             hotels.forEach((hotel) -> {
                 hotelDTOS.add(modelMapper.map(hotel, HotelDTO.class));
+
             });
-            return createAndSendResponse(HttpStatus.FOUND.value(), "Hotel Successfully retrieved!", hotelDTOS);
+            return createAndSendResponse(HttpStatus.OK.value(), "Hotels Successfully retrieved!", hotelDTOS);
+
         }
-        throw new RuntimeException("No Hotel found in the database!");
+        return createAndSendResponse(HttpStatus.NOT_FOUND.value(), "Hotels Not Found!", null);
+
     }
 
     @Override
-    public HotelDTO getHotel(String s) {
-        Optional<Hotel> hotel = hotelRepo.findById(s);
-
-        if (hotel.isPresent()) {
-            System.out.println(hotel.get());
-            return modelMapper.map(hotel.get(), HotelDTO.class);
-        }
-        throw new RuntimeException("hotel cannot found!!!");
-    }
-
-    @Override
-    public Response deleteHotels(List<String> hotelIds) {
-        System.out.println(hotelIds);
-        for (String hotelId : hotelIds) {
-            hotelRepo.deleteById(hotelId);
-            return createAndSendResponse(HttpStatus.OK.value(), "Hotel "+hotelIds+" deleted!", null);
-        }
-        return createAndSendResponse(HttpStatus.OK.value(), "ooppsss!", null);
-    }
-
-    @Override
-    public Response createAndSendResponse(int statusCode, String message, Object data) {
+    public ResponseEntity<Response> createAndSendResponse(int statusCode, String msg, Object data) {
         response.setStatusCode(statusCode);
-        response.setMessage(message);
+        response.setMessage(msg);
         response.setData(data);
-        return response;
+        System.out.println("Status Code : " + statusCode);
+        System.out.println("Sent : " + HttpStatus.valueOf(statusCode));
+
+        return new ResponseEntity<>(response, HttpStatusCode.valueOf(statusCode));
+
+    }
+
+    @Override
+    public ResponseEntity<Response> deleteAllHotels(List<String> hotelIDList) {
+        System.out.println("HotelServiceIMPL : " + hotelIDList);
+        hotelIDList.forEach((hID) -> {
+            hotelRepo.deleteById(hID);
+
+        });
+        return createAndSendResponse(HttpStatus.OK.value(), "Hotels Successfully deleted!", null);
+    }
+
+    @Override
+    public ResponseEntity<Response> findByHotelName(String hotelName) {
+        Optional<Hotel> hotel = hotelRepo.findByHotelName(hotelName);
+        if (hotel.isPresent()) {
+            return createAndSendResponse(HttpStatus.OK.value(), "Hotel Successfully retrieved!", modelMapper.map(hotel.get(), HotelDTO.class));
+
+        }
+        return createAndSendResponse(HttpStatus.NOT_FOUND.value(), "Hotel Not Found!", null);
     }
 }
