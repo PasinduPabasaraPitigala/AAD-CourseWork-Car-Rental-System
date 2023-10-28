@@ -5,47 +5,40 @@ import lk.ijse.gdse63.aad.package_detail_service.response.Response;
 import lk.ijse.gdse63.aad.package_detail_service.service.custom.PackageDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("")
-@CrossOrigin("http://localhost:8081")
+@RequestMapping("packageDetails")
+@CrossOrigin(origins = "http://localhost:8080")
 public class PackageDetailController {
-
-/*    @GetMapping(path = "/demo")
-    public String getHello(){
-        return "Heeeii";
-    }*/
-
     @Autowired
-    private PackageDetailService packageDetailService;
+    private PackageDetailService packageDetailsService;
 
-    @PostMapping(path = "/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Response savePackageDetail(@RequestBody PackageDetailDTO packageDetailDTO) {
-        return packageDetailService.save(packageDetailDTO);
-    }
-    @PutMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response update(@RequestBody PackageDetailDTO packageDetailDTO) {
-        return packageDetailService.update(packageDetailDTO);
+
+    @GetMapping("check")
+    public String getCheck(){
+        return "Checked OK packageDetails";
     }
 
-    @GetMapping(path = "/search", params = "packageDetailId", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response search(@RequestParam("packageDetailId") String packageDetailId) {
-        return packageDetailService.search(packageDetailId);
+    @PostMapping(path = "save",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response> save(@RequestBody PackageDetailDTO packageDetailsDto){
+        return packageDetailsService.save(packageDetailsDto);
     }
 
-    @DeleteMapping(path = "/delete", params = "hotelId", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response delete(@RequestParam("packageDetailId") String packageDetailId) {
-        return packageDetailService.delete(packageDetailId);
+    @PutMapping(path = "put",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response> update(@RequestBody PackageDetailDTO packageDetailsDto){
+        return packageDetailsService.update(packageDetailsDto);
     }
 
-    @GetMapping(path = "/getPackageDetail")
-    public PackageDetailDTO getPackageDetail(@RequestParam("packageDetailId") String packageDetailId) {
-        return packageDetailService.getPackageDetail(packageDetailId);
+
+    @DeleteMapping(path = "delete",params = "PkID",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response> delete(@RequestParam("PkID") String PkID){
+        return packageDetailsService.delete(PkID);
     }
 
-    @GetMapping(path = "/fetchAll", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response getAll() {
-        return packageDetailService.getAll();
+    @GetMapping(path = "get",params = "PkID",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response> search(@RequestParam("PkID")String PkID){
+        return packageDetailsService.search(PkID);
     }
 }

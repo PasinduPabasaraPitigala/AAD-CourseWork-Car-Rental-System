@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="MavenProjectsManager">
@@ -13,6 +14,7 @@
         <option value="$PROJECT_DIR$/Package_Detail_Service/pom.xml" />
         <option value="$PROJECT_DIR$/Package_Service/pom.xml" />
         <option value="$PROJECT_DIR$/User_Authorized_Service/pom.xml" />
+        <option value="$PROJECT_DIR$/UploadServer/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

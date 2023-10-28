@@ -15,15 +15,16 @@ import java.util.List;
 @Data
 public class Package {
     @Id
-    private String packageId;
+    private String package_id;
     private String packageCategory;
-    private String vehicleCategory;
-    private String hotelCategory;
-
-
     @ElementCollection
-    private List<String> hotelsList;
-
+    private List<String> hotel_list;
+    @ElementCollection//we cant use many to one
+    private List<String> Vehical_id;
     @ElementCollection
-    private List<String> vehicleList;
+    private List<String> user_list;
+    @ElementCollection
+    private List<String> guideID;
+    private String packageDetails;
+
 }

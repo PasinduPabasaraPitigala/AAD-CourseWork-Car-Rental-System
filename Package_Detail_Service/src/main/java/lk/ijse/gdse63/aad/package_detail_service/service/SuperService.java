@@ -1,21 +1,20 @@
 package lk.ijse.gdse63.aad.package_detail_service.service;
 
 import lk.ijse.gdse63.aad.package_detail_service.dto.PackageDetailDTO;
+import lk.ijse.gdse63.aad.package_detail_service.dto.SuperDTO;
 import lk.ijse.gdse63.aad.package_detail_service.response.Response;
+import org.springframework.http.ResponseEntity;
 
-public interface SuperService <T extends PackageDetailDTO,ID> {
-    Response save(PackageDetailDTO packageDetailDTO);
+public interface SuperService <T extends SuperDTO,ID> {
+    ResponseEntity<Response> search(String id);
 
-    Response update(PackageDetailDTO packageDetailDTO);
+    ResponseEntity<Response> save(T t);
 
-    Response delete(String s);
+    ResponseEntity<Response>  update(T t);
 
-    Response search(String s);
+    ResponseEntity<Response>  delete(String id);
 
-    Response getAll();
+    ResponseEntity<Response>  getAll();
 
-    PackageDetailDTO getPackageDetail(ID id);
-
-
-    Response createAndSendResponse(int statusCode, String message, Object data);
+    ResponseEntity<Response> createAndSendResponse(int statusCode,String msg,Object data);
 }

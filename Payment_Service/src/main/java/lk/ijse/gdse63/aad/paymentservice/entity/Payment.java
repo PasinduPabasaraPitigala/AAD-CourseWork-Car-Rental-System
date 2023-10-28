@@ -12,15 +12,9 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Payment {
     @Id
-    private String paymentId;
-
-    private String paymentDate;
-
-    private String paymentAmount;
-
-    private String userId;
-
-    private String packageDetailsId;
-
-
+    private String payID;
+    private int DailyIncome;
+    private int AnnualIncome;
+    private int MonthlyIncome;
+    private int WeeklyIncome;
 }

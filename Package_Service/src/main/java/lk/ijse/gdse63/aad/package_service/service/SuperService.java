@@ -2,28 +2,21 @@ package lk.ijse.gdse63.aad.package_service.service;
 
 
 import lk.ijse.gdse63.aad.package_service.dto.PackageDTO;
+import lk.ijse.gdse63.aad.package_service.dto.SuperDTO;
 import lk.ijse.gdse63.aad.package_service.response.Response;
+import org.springframework.http.ResponseEntity;
 
-public interface SuperService<T extends PackageDTO,ID> {
-    Response save(T t);
+public interface SuperService<T extends SuperDTO,ID> {
+    ResponseEntity<Response> search(String id);
 
-    Response update(T t);
+    ResponseEntity<Response> save(T t);
 
-    Response delete(String id);
+    ResponseEntity<Response> update(T t);
 
-    Response search(String id);
+    ResponseEntity<Response> delete(String id);
 
-    PackageDTO getPackage(String id);
+    ResponseEntity<Response> getAll();
 
-    public Response saveVehicleIds(String Vehicleid, String Packageid);
+    ResponseEntity<Response> createAndSendResponse(int statusCode, String msg, Object data);
 
-    public Response saveHotelIds(String Hotelid, String Packageid);
-
-    Response getAll();
-
-    Response createAndSendResponse(int statusCode, String message, Object data);
-
-    Response deleteHotelFromPackage(String hotelID, String packageid);
-
-    Response deleteVehicleFromPackage(String vehicleID, String packageid);
 }

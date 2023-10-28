@@ -1,10 +1,9 @@
 package lk.ijse.gdse63.aad.paymentservice.service;
 
 import lk.ijse.gdse63.aad.paymentservice.dto.PaymentDTO;
-import lk.ijse.gdse63.aad.paymentservice.dto.SuperDTO;
 import lk.ijse.gdse63.aad.paymentservice.response.Response;
 
-public interface SuperService<T extends SuperDTO,ID > {
+public interface SuperService<T,ID > {
     Response savePayment(T t);
 
     Response update(T t);

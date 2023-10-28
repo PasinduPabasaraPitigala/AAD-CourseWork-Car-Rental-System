@@ -8,6 +8,7 @@ public class PackageDetailServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(PackageDetailServiceApplication.class, args);
+        System.out.println("package detail service application is running!!!");
     }
 
 }
