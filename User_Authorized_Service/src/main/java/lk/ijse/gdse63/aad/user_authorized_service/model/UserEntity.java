@@ -1,57 +1,73 @@
 package lk.ijse.gdse63.aad.user_authorized_service.model;
 
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
 @Builder
-public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
+@Table
+@Entity
+public class UserEntity implements UserDetails ,SuperEntity{
+
+    private String userRole;
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+
     private String userId;
+
+    private String name;
+
     private String userName;
-    private String pw;
-    @Enumerated
-    private Roles role;
+
+    private String userPassword;
+
     private String userNIC;
-    private String userAddress;
-    private String userDOB;
-    private String userPhone;
+
+    private String userNICImageLocation;
+
+    private int userAge;
+    @Enumerated(EnumType.STRING)
+
+    private GENDER gender;
+
     private String userEmail;
-    private String gender;
-    private String userNICimageLocation;
+
+    private String userPhone;
+
+    private String userAddress;
+
+    private String remarks;
+
     private String userImageLocation;
+
     private boolean isAuthenticated;
 
-    @ElementCollection
-    private List<String> packageDetailsList;
-
-    @ElementCollection
-    private List<String> paymentsList;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> packageDetailsIDList;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> paymentsIDList;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
-
+        return List.of(new SimpleGrantedAuthority(userRole));
     }
 
     @Override
     public String getPassword() {
-        return pw;
+        return userPassword;
     }
 
     @Override
@@ -78,4 +94,5 @@ public class UserDetails implements org.springframework.security.core.userdetail
     public boolean isEnabled() {
         return true;
     }
+
 }

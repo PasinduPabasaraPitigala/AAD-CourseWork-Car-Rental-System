@@ -1,7 +1,7 @@
 package lk.ijse.gdse63.aad.user_authorized_service.dto;
 
-import lk.ijse.gdse63.aad.guideservice.dto.SuperDTO;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,25 +10,28 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class HotelDTO  implements Serializable, SuperDTO {
 
-    private String hotelId;
+    private String hotelID;
     private String hotelName;
     private String hotelCategory;
-    private String hotelLocation;
-    private String hotelLocationWithCoordinates;
-    private String hotelImageLocation;
-    private String hotelContactEmail;
-    private String hotelContact1;
-    private String hotelContact2;
-    private double fullBoardWithACLuxuryRoomDouble;
-    private double halfBoardWithACLuxuryRoomDouble;
-    private double fullBoardWithACLuxuryRoomTriple;
-    private double halfBoardWithACLuxuryRoomTriple;
-    private boolean isPetsAllowed;
-    private double hotelFee;
-    private String cancellationCriteria;
-    private String remarks;
+    private String location;
+    private String locationCoordinate;
+    private String hotelEmail;
+    private String contactNumber01;
+    private String getContactNumber02;
+    private boolean petsStatus;
+    //Pets allowed or not
+    private String FullBoarddoublehotelFee;
+    private String HalfBoardDoublehotelFee;
+    private String FullBoardTriplehotelFee;
+    private String HalfBoardTriplehotelFee;
 
-    private String packageId;
+    private String CancellationCriteria;
+
+
+
+    private String remark;
+    private String package_id;
 }

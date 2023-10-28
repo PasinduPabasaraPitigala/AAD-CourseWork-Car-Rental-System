@@ -3,7 +3,6 @@ package lk.ijse.gdse63.aad.user_authorized_service.endpoints;
 
 import lk.ijse.gdse63.aad.user_authorized_service.dto.PackagesDTO;
 import lk.ijse.gdse63.aad.user_authorized_service.interfaces.PackagesControllerInterface;
-import lk.ijse.gdse63.aad.user_authorized_service.model.Packages;
 import lk.ijse.gdse63.aad.user_authorized_service.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/packages")

@@ -3,14 +3,11 @@ package lk.ijse.gdse63.aad.user_authorized_service.endpoints;
 
 import lk.ijse.gdse63.aad.user_authorized_service.dto.VehicleDTO;
 import lk.ijse.gdse63.aad.user_authorized_service.interfaces.VehicleControllerInterface;
-import lk.ijse.gdse63.aad.user_authorized_service.model.Vehicle;
 import lk.ijse.gdse63.aad.user_authorized_service.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/vehicle")

@@ -2,7 +2,6 @@ package lk.ijse.gdse63.aad.user_authorized_service.endpoints;
 
 
 import lk.ijse.gdse63.aad.user_authorized_service.dto.UserDetailsDTO;
-import lk.ijse.gdse63.aad.user_authorized_service.model.UserDetails;
 import lk.ijse.gdse63.aad.user_authorized_service.response.Response;
 import lk.ijse.gdse63.aad.user_authorized_service.service.custom.UserDetailsServicee;
 import org.springframework.beans.factory.annotation.Autowired;

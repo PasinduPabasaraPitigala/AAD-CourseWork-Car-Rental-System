@@ -2,7 +2,6 @@ package lk.ijse.gdse63.aad.user_authorized_service.service.custom.impl;
 
 import lk.ijse.gdse63.aad.user_authorized_service.config.JWTService;
 import lk.ijse.gdse63.aad.user_authorized_service.dto.UserDetailsDTO;
-import lk.ijse.gdse63.aad.user_authorized_service.model.UserDetails;
 import lk.ijse.gdse63.aad.user_authorized_service.repo.UserRepo;
 import lk.ijse.gdse63.aad.user_authorized_service.response.Response;
 import lk.ijse.gdse63.aad.user_authorized_service.service.custom.UserDetailsServicee;
