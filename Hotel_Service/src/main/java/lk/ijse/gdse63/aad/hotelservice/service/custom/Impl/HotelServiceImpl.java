@@ -40,8 +40,8 @@ public class HotelServiceImpl implements HotelService {
     public ResponseEntity<Response> add(HotelDTO hotelDTO) {
         if (search(hotelDTO.getHotelId()).getBody().getData() == null) {
             hotelRepo.save(modelMapper.map(hotelDTO, Hotel.class));
-            HotelDTO dto = (HotelDTO) findByHotelName(hotelDTO.getHotelName()).getBody().getData();
-            packagesControllerInterface.saveHotelID(hotelDTO.getPackageId(), dto.getHotelId());
+//            HotelDTO dto = (HotelDTO) findByHotelName(hotelDTO.getHotelName()).getBody().getData();
+//            packagesControllerInterface.saveHotelID(hotelDTO.getPackageId(), dto.getHotelId());
             return createAndSendResponse(HttpStatus.CREATED.value(), "Hotel Successfully saved!", true);
 
         }

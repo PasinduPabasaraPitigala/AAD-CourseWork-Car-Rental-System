@@ -1,6 +1,6 @@
-package com.example.user_server.user.api;
+package lk.ijse.gdse63.aad.user_authorized_service.Controller;
 
-import com.example.user_server.user.config.JWTService;
+import lk.ijse.gdse63.aad.user_authorized_service.config.JWTService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

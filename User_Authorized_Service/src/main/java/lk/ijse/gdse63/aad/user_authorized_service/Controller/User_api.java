@@ -1,9 +1,9 @@
-package com.example.user_server.user.api;
+package lk.ijse.gdse63.aad.user_authorized_service.Controller;
 
 
-import com.example.user_server.user.dto.User_dto;
-import com.example.user_server.user.res.Response;
-import com.example.user_server.user.service.custom.UserService;
+import lk.ijse.gdse63.aad.user_authorized_service.dto.UserDetailsDTO;
+import lk.ijse.gdse63.aad.user_authorized_service.response.Response;
+import lk.ijse.gdse63.aad.user_authorized_service.service.custom.UserDetailsServicee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class User_api {
 
     @Autowired
-    private UserService userService;
+    private UserDetailsServicee userService;
 
     @GetMapping(path = "/getUserByUserName", produces = MediaType.APPLICATION_JSON_VALUE, params = {"username", "password"})
     public ResponseEntity<Response> getUserByUserName(@RequestParam("username") String username, @RequestParam("password") String password) {
@@ -24,11 +24,11 @@ public class User_api {
     }
 
     @PostMapping(path = "/saveUser", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response> saveUser(@RequestBody User_dto userDTO) {
+    public ResponseEntity<Response> saveUser(@RequestBody UserDetailsDTO userDTO) {
         return userService.add(userDTO);
     }
     @PutMapping(path = "/updateUser", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response> updateUser(@RequestBody User_dto userDTO) {
+    public ResponseEntity<Response> updateUser(@RequestBody UserDetailsDTO userDTO) {
         return userService.update(userDTO);
     }
     @DeleteMapping(path = "/deleteUser", produces = MediaType.APPLICATION_JSON_VALUE, params = {"userId"})

@@ -18,39 +18,32 @@ public class PackagesController {
     @Autowired
     private PackagesControllerInterface packagesControllerInterface;
 
-    @PostMapping(path = "/save",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response>add(@RequestBody PackagesDTO packagesDTO){
-        return  packagesControllerInterface.save(packagesDTO);
 
+    @GetMapping("/check")
+    public String getCheck_package(){
+        return "Package API Running";
     }
-    @PutMapping(path = "/update",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response>update(@RequestBody PackagesDTO packagesDTO){
-        return packagesControllerInterface.update(packagesDTO);
 
+    @PostMapping(path = "/P_save",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response save(@RequestBody PackagesDTO packageDto){
+        System.out.println("Package save working");
+        return   packagesControllerInterface.save(packageDto);
     }
-    @GetMapping(path = "/search",produces = MediaType.APPLICATION_JSON_VALUE,params = "packageID")
-    public ResponseEntity<Response>search(@RequestParam("packageID")String packageID){
-        return packagesControllerInterface.search(packageID);
 
+    @PutMapping(path = "/P_put",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response update(@RequestBody  PackagesDTO packageDto){
+        System.out.println("Package update working");
+        return   packagesControllerInterface.update(packageDto);
     }
-    @DeleteMapping(path = "/delete",produces = MediaType.APPLICATION_JSON_VALUE,params = "packageID")
-    public ResponseEntity<Response>delete(@RequestParam("packageID")String packageID){
-        System.out.println("packageID = " + packageID);
-        return packagesControllerInterface.delete(packageID);
 
+    @DeleteMapping(path = "/P_dlt",params = "P_id",produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response delete(@RequestParam("P_id") String packageId){
+        return   packagesControllerInterface.delete(packageId);
     }
-    @GetMapping(path = "/getAll",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response>getAll(){
-        return  packagesControllerInterface.getAllPackages();
 
+    @GetMapping(path = "/P_search",params = "Package_ID",produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response  search(@RequestParam("Package_ID") String packageID){
+        return  packagesControllerInterface.search(packageID);
     }
-    @GetMapping(path = "/getAllIDs")
-    public List<String>getAllPackageIDs(){
-        return packagesControllerInterface.getAllPackageIDs();
-    }
-    @GetMapping(path = "/getPackageByCategory",produces = MediaType.APPLICATION_JSON_VALUE,params = "category")
-    public ResponseEntity<Response>getPackageByCategory(@RequestParam("category")String category){
-        return  packagesControllerInterface.getPackageByCategory(category);
 
-    }
 }

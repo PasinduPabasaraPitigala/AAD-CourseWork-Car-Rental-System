@@ -1,9 +1,8 @@
-package com.example.user_server.user.api;
+package lk.ijse.gdse63.aad.user_authorized_service.Controller;
 
-import com.example.user_server.user.dto.User_dto;
-import com.example.user_server.user.res.Response;
-import com.example.user_server.user.service.custom.UserService;
-import jakarta.validation.Valid;
+import lk.ijse.gdse63.aad.user_authorized_service.dto.UserDetailsDTO;
+import lk.ijse.gdse63.aad.user_authorized_service.response.Response;
+import lk.ijse.gdse63.aad.user_authorized_service.service.custom.UserDetailsServicee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin
 public class AuthController {
     @Autowired
-    private UserService userService;
+    private UserDetailsServicee userService;
 
     @PostMapping(path = "/getAuth", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response> getAuth(@RequestBody  User_dto userDTO) {
+    public ResponseEntity<Response> getAuth(@RequestBody  UserDetailsDTO userDTO) {
         System.out.println(userDTO.toString());
         return userService.add(userDTO);
     }
@@ -27,7 +26,7 @@ public class AuthController {
     public ResponseEntity<Response> uploadImage(@RequestParam("imageFile") MultipartFile imageFile, @RequestParam("userId") String userId) {
         ResponseEntity<Response> user = userService.search(userId);
 
-        User_dto userData = (User_dto) user.getBody().getData();
+        UserDetailsDTO userData = (UserDetailsDTO) user.getBody().getData();
         if(userData!=null){
             userData.setUserImageLocation(userService.handleUploads(imageFile));
             return userService.update(userData);
@@ -36,10 +35,10 @@ public class AuthController {
 
     }
 
-    @GetMapping(path = "/hello")
+ /*   @GetMapping(path = "/hello")
     public String  getRole(){
         return "Hello nigger!";
 
-    }
+    }*/
 
 }

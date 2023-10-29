@@ -1,6 +1,7 @@
 package lk.ijse.gdse63.aad.user_authorized_service.endpoints;
 
 
+import jakarta.validation.Valid;
 import lk.ijse.gdse63.aad.user_authorized_service.dto.HotelDTO;
 import lk.ijse.gdse63.aad.user_authorized_service.interfaces.HotelControllerInterface;
 import lk.ijse.gdse63.aad.user_authorized_service.response.Response;
@@ -17,34 +18,25 @@ public class HotelController {
     @Autowired
     private HotelControllerInterface hotelControllerInterface;
 
-    @PostMapping(path = "/save",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response> saveHotel(@RequestBody   HotelDTO hotelDTO){
-        System.out.println("hotelDTO"+hotelDTO.toString());
-        return  hotelControllerInterface.saveHotel(hotelDTO);
-
+    @PostMapping(path = "h_save",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response save(@RequestBody HotelDTO hotelDto){
+        System.out.println("Hotel save working");
+        return  hotelControllerInterface.save(hotelDto);
     }
-    @PutMapping(path = "/update",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response>updateHotel(@RequestBody HotelDTO hotelDTO){
-        return  hotelControllerInterface.updateHotel(hotelDTO);
 
+    @PutMapping(path = "h_put",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response update(@Valid @RequestBody HotelDTO hotelDto){
+        System.out.println("Hotel update working");
+        return  hotelControllerInterface.update(hotelDto);
     }
-    @GetMapping(path = "/search",params = "hotelID",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response>searchHotel(@RequestParam("hotelID")String hotelID ){
-        return  hotelControllerInterface.searchHotel(hotelID);
 
+    @DeleteMapping(path = "H_Delete",params = "H_ID",produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response delete(@Valid @RequestParam("H_ID") String H_ID){
+        return  hotelControllerInterface.delete(H_ID);
     }
-    @DeleteMapping(path = "/delete",params = "hotelID",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response>deleteHotel(@RequestParam("hotelID")String hotelID ){
-        return  hotelControllerInterface.deleteHotel(hotelID);
 
-    }
-    @GetMapping(path = "/getAll",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response>searchHotel(){
-        return  hotelControllerInterface.getAllHotels();
-
-    }
-    @GetMapping(path = "/getHotelByName",params = "hotelName",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response>getHotelByNName(@RequestParam("hotelName") String hotelName) {
-        return hotelControllerInterface.getHotelByName(hotelName);
+    @GetMapping(path = "H_search",params = "H_ID",produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response search(@Valid @RequestParam("H_ID") String H_ID){
+        return  hotelControllerInterface.search(H_ID);
     }
 }

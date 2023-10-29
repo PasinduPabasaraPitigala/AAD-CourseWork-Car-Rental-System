@@ -1,6 +1,7 @@
 package lk.ijse.gdse63.aad.user_authorized_service.config;
 
 
+
 import lk.ijse.gdse63.aad.user_authorized_service.service.custom.impl.UserServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

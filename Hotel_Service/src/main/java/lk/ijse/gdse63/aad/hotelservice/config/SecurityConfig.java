@@ -19,7 +19,7 @@ public class SecurityConfig {
         http
                 .addFilterBefore(jwtAuthFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .requestMatchers("/**").hasAnyAuthority("A_HOTEL","A_PACKAGE")
+                .requestMatchers("/**").hasAnyAuthority("hotelAdmin","A_PACKAGE")
                 .anyRequest().permitAll()
 
                 .and()
@@ -28,3 +28,5 @@ public class SecurityConfig {
 
     }
 }
+
+//eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyUm9sZSI6ImhvdGVsQWRtaW4iLCJzdWIiOiJob3RlbE5hbWUiLCJpYXQiOjE2OTg1Njc2MTAsImV4cCI6NDg1MjE2NzYxMH0.VHug8k4hy1RLuJuG-iSrfCkchy-Fwh0qlJzMzUd2jRA

@@ -56,7 +56,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
         //Checking of the username's not nullability  and the authentication status of the current user.
         if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            if (JWTService.validateToken(jwtToken) && JWTService.getUserRole(jwtToken).equals("A_GUIDE") || JWTService.getUserRole(jwtToken).equals("packageAdmin")) {
+            if (JWTService.validateToken(jwtToken) && JWTService.getUserRole(jwtToken).equals("guideAdmin") || JWTService.getUserRole(jwtToken).equals("packageAdmin")) {
                 System.out.println("User role : "+JWTService.getUserRole(jwtToken));
                 List<SimpleGrantedAuthority> simpleGrantedAuthorities=new ArrayList<>();
                 simpleGrantedAuthorities.add(new SimpleGrantedAuthority(JWTService.getUserRole(jwtToken)));

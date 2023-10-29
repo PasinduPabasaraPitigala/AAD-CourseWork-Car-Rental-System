@@ -1,6 +1,7 @@
 package lk.ijse.gdse63.aad.user_authorized_service.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,20 +10,20 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class VehicleDTO  implements SuperDTO, Serializable {
     private String vehicleID;
     private String vehicleBrand;
     private String vehicleCategory;
     private String fuelType;
-    private String hybridOrNot;
+    private String hybrid;
     private String fuelUsage;
-    private String vehicleImage;
+    private String vehicleImg;
+    private String vehicleInteriorImg;
     private String seatCapacity;
-    private String vehicleType;
     private String transmissionType;
-    private String driversName;
-    private String driversContactNumber;
-    private String driverLicenseImageLocation;
-
-    private String packageId;
+    private String driverName;
+    private String conNumber;
+    private String driverlicenseImg;
+    private String remarks;
 }

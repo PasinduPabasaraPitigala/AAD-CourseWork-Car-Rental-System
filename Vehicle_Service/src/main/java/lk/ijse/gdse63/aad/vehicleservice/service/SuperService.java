@@ -1,25 +1,25 @@
 package lk.ijse.gdse63.aad.vehicleservice.service;
 
-import lk.ijse.gdse63.aad.vehicleservice.dto.SuperDTO;
-import lk.ijse.gdse63.aad.vehicleservice.dto.VehicleDTO;
-import lk.ijse.gdse63.aad.vehicleservice.response.Response;
+
+import lk.ijse.gdse63.aad.vehicleservice.dto.SuperDto;
+import lk.ijse.gdse63.aad.vehicleservice.res.Response;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public interface SuperService <T extends SuperDTO,ID>{
-    Response saveVehicle(T t);
+public interface SuperService <T extends SuperDto, ID> {
 
-    Response update(T t);
 
-    Response delete(ID id);
+    ResponseEntity<Response>  search(String id);
 
-    Response search(ID id);
+    ResponseEntity<Response>  save(T t);
 
-    VehicleDTO getVehicle(ID id);
+    ResponseEntity<Response>   update(T t);
 
-    Response getAll();
+    ResponseEntity<Response> delete(String id);
 
-    Response createAndSendResponse(int statusCode, String message, Object data);
+    ResponseEntity<Response>   getAll();
 
-    Response deleteVehicles(List<String> vehicleIds);
+    ResponseEntity<Response> createAndSendResponse(int statusCode,String msg,Object data);
+
 }

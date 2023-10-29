@@ -10,6 +10,7 @@ public class UserAuthorizedServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(UserAuthorizedServiceApplication.class, args);
+        System.out.println("User_auth...");
     }
 
 }

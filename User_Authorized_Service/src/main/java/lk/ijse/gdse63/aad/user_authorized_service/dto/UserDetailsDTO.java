@@ -1,6 +1,7 @@
 package lk.ijse.gdse63.aad.user_authorized_service.dto;
 
-import lk.ijse.gdse63.aad.user_authorized_service.model.
+import lk.ijse.gdse63.aad.user_authorized_service.model.GENDER;
+import lk.ijse.gdse63.aad.user_authorized_service.model.Role;
 import lombok.*;
 
 import java.io.Serializable;

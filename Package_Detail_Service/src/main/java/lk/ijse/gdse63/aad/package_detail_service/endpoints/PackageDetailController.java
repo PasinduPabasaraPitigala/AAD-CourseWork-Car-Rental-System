@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("packageDetails")
-@CrossOrigin(origins = "http://localhost:8080")
+@RequestMapping("/api/v1/packageDetails")
+@CrossOrigin(origins = "http://localhost:8090")
 public class PackageDetailController {
     @Autowired
     private PackageDetailService packageDetailsService;

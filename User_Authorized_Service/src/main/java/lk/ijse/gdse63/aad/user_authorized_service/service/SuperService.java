@@ -15,5 +15,5 @@ public interface SuperService<T extends SuperDTO,ID >{
 
     ResponseEntity<Response> search(ID id);
 
-    ResponseEntity<Response> getAll(T t);
+    ResponseEntity<Response> getAll();
 }

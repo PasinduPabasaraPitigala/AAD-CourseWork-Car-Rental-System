@@ -2,6 +2,7 @@ package lk.ijse.gdse63.aad.user_authorized_service.service.custom.impl;
 
 import lk.ijse.gdse63.aad.user_authorized_service.config.JWTService;
 import lk.ijse.gdse63.aad.user_authorized_service.dto.UserDetailsDTO;
+import lk.ijse.gdse63.aad.user_authorized_service.model.UserEntity;
 import lk.ijse.gdse63.aad.user_authorized_service.repo.UserRepo;
 import lk.ijse.gdse63.aad.user_authorized_service.response.Response;
 import lk.ijse.gdse63.aad.user_authorized_service.service.custom.UserDetailsServicee;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,13 +36,22 @@ public class UserServiceImpl implements UserDetailsService, UserDetailsServicee 
     private PasswordEncoder passwordEncoder;
     @Autowired
     private JWTService jwtService;
-    @Override
-    public ResponseEntity<Response> add(UserDetailsDTO userDetailsDTO) {
-        if (search(userDetailsDTO.getUserId()).getBody().getData() == null) {
-            userDetailsDTO.setPw(passwordEncoder.encode(userDetailsDTO.getPw()));
 
-            userRepo.save(mapper.map(userDetailsDTO, UserDetails.class));
-            return createAndSendResponse(HttpStatus.CREATED.value(), "User Successfully saved and JWT successfully generated!", jwtService.generateToken(mapper.map(userDetailsDTO, UserDetails.class)));
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<UserEntity> user = userRepo.findByUserName(username);
+        return user.isPresent() ? user.get() : user.orElseThrow(() -> new UsernameNotFoundException("User not found!"));
+    }
+
+    @Override
+    public ResponseEntity<Response> add(UserDetailsDTO userDTO) {
+        if (search(userDTO.getUserId()).getBody().getData() == null) {
+            userDTO.setUserPassword(passwordEncoder.encode(userDTO.getUserPassword()));
+
+            userRepo.save(mapper.map(userDTO, UserEntity.class));
+            HashMap<String,Object> userRoles= new HashMap<>();
+            userRoles.put("userRole",userDTO.getUserRole());
+            return createAndSendResponse(HttpStatus.CREATED.value(), "User Successfully saved and JWT successfully generated!", jwtService.generateToken(userRoles,mapper.map(userDTO, UserEntity.class)));
 
         }
 
@@ -47,13 +59,14 @@ public class UserServiceImpl implements UserDetailsService, UserDetailsServicee 
     }
 
     @Override
-    public ResponseEntity<Response> update(UserDetailsDTO userDetailsDTO) {
-        if (search(userDetailsDTO.getUserId()).getBody().getData() == null) {
+    public ResponseEntity<Response> update(UserDetailsDTO userDTO) {
+        if (search(userDTO.getUserId()).getBody().getData() == null) {
             return createAndSendResponse(HttpStatus.NOT_FOUND.value(), "User not found!", null);
 
         }
-        userRepo.save(mapper.map(userDetailsDTO, UserDetails.class));
+        userRepo.save(mapper.map(userDTO, UserEntity.class));
         return createAndSendResponse(HttpStatus.OK.value(), "User successfully updated!", null);
+
 
     }
 
@@ -65,21 +78,24 @@ public class UserServiceImpl implements UserDetailsService, UserDetailsServicee 
         }
         userRepo.deleteById(s);
         return createAndSendResponse(HttpStatus.OK.value(), "User successfully deleted!", null);
+
     }
 
     @Override
-    public ResponseEntity<Response> search(String s) {
-        Optional<UserDetails> user = userRepo.findById(s);
+    public ResponseEntity<Response> search(String userId) {
+        Optional<UserEntity> user = userRepo.findById(userId);
         if (user.isPresent()) {
             return createAndSendResponse(HttpStatus.OK.value(), "User successfully retrieved!", mapper.map(user.get(), UserDetailsDTO.class));
 
         }
         return createAndSendResponse(HttpStatus.NOT_FOUND.value(), "User not found!", null);
+
+
     }
 
     @Override
-    public ResponseEntity<Response> getAll(UserDetailsDTO userDetailsDTO) {
-        List<UserDetails> users = userRepo.findAll();
+    public ResponseEntity<Response> getAll() {
+        List<UserEntity> users = userRepo.findAll();
         if (users.isEmpty()) {
             return createAndSendResponse(HttpStatus.NOT_FOUND.value(), "Users not found!", null);
 
@@ -90,6 +106,7 @@ public class UserServiceImpl implements UserDetailsService, UserDetailsServicee 
 
         });
         return createAndSendResponse(HttpStatus.OK.value(), "Users successfully retrieved!", usersList);
+
     }
 
     @Override
@@ -125,11 +142,11 @@ public class UserServiceImpl implements UserDetailsService, UserDetailsServicee 
     }
 
     @Override
-    public ResponseEntity<Response> getUserByUserName(String username, String password) {
-        Optional<UserDetails> user = userRepo.findByUserName(username);
+    public ResponseEntity<Response> getUserByUserName(String username,String password) {
+        Optional<UserEntity> user = userRepo.findByUserName(username);
         if(user.isPresent()){
-            UserDetailsDTO userDTO = mapper.map(user.get(), UserDetailsDTO.class);
-            userDTO.setAuthenticated(passwordValidator(password,user.get().getPw()));
+             UserDetailsDTO userDTO = mapper.map(user.get(),  UserDetailsDTO.class);
+            userDTO.setAuthenticated(passwordValidator(password,user.get().getUserPassword()));
             return createAndSendResponse(HttpStatus.OK.value(),"User successfully retrieved!",userDTO);
 
         }
@@ -137,13 +154,8 @@ public class UserServiceImpl implements UserDetailsService, UserDetailsServicee 
     }
 
     @Override
-    public Boolean passwordValidator(String password, String hashedPassword) {
-        return passwordEncoder.matches(password, hashedPassword);
-    }
+    public Boolean passwordValidator(String password,String storedHashedPassword) {
+        return passwordEncoder.matches(password, storedHashedPassword);
 
-    @Override
-    public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserDetails> user = userRepo.findByUserName(username);
-        return user.isPresent() ? user.get() : user.orElseThrow(() -> new UsernameNotFoundException("User not found!"));
     }
 }

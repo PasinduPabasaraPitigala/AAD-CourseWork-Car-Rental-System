@@ -35,6 +35,5 @@ public class Hotel {
     private double hotelFee;
     private String cancellationCriteria;
     private String remarks;
-
     private String packageId;
 }
