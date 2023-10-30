@@ -16,7 +16,9 @@ import java.util.function.Function;
 
 @Service
 public class JWTService {
-    private static final String SECRET_KEY = "C8A47F2B98E071F55A9676E16994C042D2A4D68EACDBBB72D866F8A75F91E406";
+
+    private static final String SECRET_KEY = "khBfXWLgglDDWijP3yIMNRTVLCus5BoLD9lGlyXTgtaOG68G7YreTCG4qATj9hkDWFkK0ADUJAy5+QG3KAUKR0hzjxcVFEMwYc7XnPH7JUIL+kfAYcPzlo2iT9ZzcNVz3/SnbrEELQ5x/arqataa4W6cxv6QAvuaAVxDEun53SebHriEs1t+XmOz88S2DUEMu+9QuPX7N5J/mOjutgr6LGrnm6dc/eln8/gzc6h4owY3euerPoFs/LzT0os/LXtEtI55W1H5HaiNtmr1HbSRgPzuYMMWr+npDKFpYsbq+SIHLlEtocFQdYaagosgcdUIibie6eLe8s9aKrYrcvJTDXxgyWYNWYGWs8CZ4ClCDzE=";
+
 
     public String extractUsername(String jwtToken) {
         return extractClaim(jwtToken, Claims::getSubject);
@@ -78,3 +80,5 @@ public class JWTService {
     }
 
 }
+
+//"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyUm9sZSI6InBhY2thZ2VBZG1pbiIsInN1YiI6InBhY2thZ2VOYW1lIiwiaWF0IjoxNjk4NjY0ODczLCJleHAiOjQ4NTIyNjQ4NzN9.Z5TW5tF2QLhUNvp6oNLopxn0GHsG8VVKI5Lmw1d_MJE"

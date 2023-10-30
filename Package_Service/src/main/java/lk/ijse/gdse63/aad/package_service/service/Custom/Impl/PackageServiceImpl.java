@@ -55,7 +55,7 @@ public class PackageServiceImpl implements PackageService {
         if (packageEntity.isPresent()){
             return createAndSendResponse(HttpStatus.FOUND.value() ,"success",modelMapper.map(packageEntity.get(),PackageDTO.class));
         }
-        return createAndSendResponse(HttpStatus.NOT_EXTENDED.value(),null,"eorr");
+        return createAndSendResponse(HttpStatus.NOT_EXTENDED.value(),"eorr",null);
     }
 
     @Override

@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Guide {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+//    @GeneratedValue(strategy = GenerationType.UUID)
     private String guideID;
 
     private String guideName;

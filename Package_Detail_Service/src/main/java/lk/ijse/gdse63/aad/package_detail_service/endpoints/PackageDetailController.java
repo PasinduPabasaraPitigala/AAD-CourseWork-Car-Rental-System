@@ -9,21 +9,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/packageDetails")
-@CrossOrigin(origins = "http://localhost:8090")
+@RequestMapping("")
+@CrossOrigin
 public class PackageDetailController {
     @Autowired
     private PackageDetailService packageDetailsService;
 
 
-    @GetMapping("check")
+    @GetMapping(path = "/check")
     public String getCheck(){
         return "Checked OK packageDetails";
     }
 
-    @PostMapping(path = "save",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/save",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Response> save(@RequestBody PackageDetailDTO packageDetailsDto){
+        System.out.println("yoo yooo");
         return packageDetailsService.save(packageDetailsDto);
+
     }
 
     @PutMapping(path = "put",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)

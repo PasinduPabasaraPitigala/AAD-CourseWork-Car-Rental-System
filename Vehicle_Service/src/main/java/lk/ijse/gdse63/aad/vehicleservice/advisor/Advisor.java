@@ -1,6 +1,6 @@
 package lk.ijse.gdse63.aad.vehicleservice.advisor;
 
-import com.example.prabhash.vehicelserver.res.Response;
+import lk.ijse.gdse63.aad.vehicleservice.res.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;

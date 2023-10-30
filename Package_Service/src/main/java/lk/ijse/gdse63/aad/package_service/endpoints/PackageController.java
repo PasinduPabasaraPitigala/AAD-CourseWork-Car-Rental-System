@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("packageService")
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin
 public class PackageController {
 /*
     @GetMapping(path = "/demo")

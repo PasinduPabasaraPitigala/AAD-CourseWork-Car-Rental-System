@@ -30,7 +30,7 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .authorizeRequests()
                 .requestMatchers("/api/v1/auth/getAuth").permitAll()
-                .requestMatchers("/**").hasAnyAuthority("user", "userAdmin", "packageDetailsAdmin", "paymentsAdmin","guideAdmin","hotelAdmin","packageAdmin")
+                .requestMatchers("/**").hasAnyAuthority("user", "userAdmin", "pdAdmin", "paymentsAdmin","guideAdmin","hotelAdmin","packageAdmin")
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
