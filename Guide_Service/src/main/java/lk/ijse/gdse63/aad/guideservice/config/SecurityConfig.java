@@ -22,7 +22,7 @@ public class SecurityConfig {
         http
                 .addFilterBefore(jwtAuthFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .requestMatchers("/**").hasAnyAuthority("A_HOTEL","A_PACKAGE","guideAdmin")
+                .requestMatchers("/*").hasAnyAuthority("hotelAdmin","packageAdmin","guideAdmin")
                 .anyRequest().permitAll()
 
                 .and()

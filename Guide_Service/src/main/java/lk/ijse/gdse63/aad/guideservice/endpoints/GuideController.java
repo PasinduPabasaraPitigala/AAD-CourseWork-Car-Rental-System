@@ -19,7 +19,7 @@ public class GuideController {
     @Autowired
     private GuideService guideService;
 
-    @PostMapping(path = "/Gsave",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "Gsave",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity saveGuide(@RequestBody GuideDTO guideDto){
         System.out.println("Guide save controller"+guideDto.toString());
         return guideService.save(guideDto);

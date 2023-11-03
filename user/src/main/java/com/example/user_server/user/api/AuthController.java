@@ -38,7 +38,7 @@ public class AuthController {
 
     @GetMapping(path = "/hello")
     public String  getRole(){
-        return "Hello nigger!";
+        return "Hello!";
 
     }
 
