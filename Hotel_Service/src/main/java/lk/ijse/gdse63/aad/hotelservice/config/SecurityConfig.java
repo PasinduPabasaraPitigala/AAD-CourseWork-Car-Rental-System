@@ -16,14 +16,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+        http.csrf(csrf -> csrf.disable()).cors(cors->cors.disable())
                 .addFilterBefore(jwtAuthFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .requestMatchers("/**").hasAnyAuthority("hotelAdmin","packageAdmin","vehicleAdmin")
-                .anyRequest().permitAll()
-
-                .and()
-                .csrf().disable();
+                .requestMatchers("/*").hasAnyAuthority("hotelAdmin","packageAdmin")
+                .anyRequest().permitAll();
         return http.build();
 
     }

@@ -37,7 +37,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("Authorization");//Extracting the header.
         String jwtToken = null;
         String userName;
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        if (authHeader == null || !authHeader.startsWith("Bearer")) {
             System.out.println("No token found! - This is HS.");
             filterChain.doFilter(request, response);
             return;

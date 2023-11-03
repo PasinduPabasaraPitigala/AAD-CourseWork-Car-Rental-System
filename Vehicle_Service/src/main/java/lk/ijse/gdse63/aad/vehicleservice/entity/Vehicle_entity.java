@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class Vehicle_entity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+//    @GeneratedValue(strategy = GenerationType.UUID)
     private String vehicleID;
 
     private String vehicleBrand;

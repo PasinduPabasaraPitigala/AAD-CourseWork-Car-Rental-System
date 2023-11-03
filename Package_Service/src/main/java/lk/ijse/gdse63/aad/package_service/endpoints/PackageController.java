@@ -54,4 +54,11 @@ public class PackageController {
     public ResponseEntity<Response>  search(@RequestParam("Package_ID") String packageID){
         return packageService.search(packageID);
     }
+
+    @GetMapping(path = "/getAllPackages",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response>getAllPackages(){
+        return  packageService.getAll();
+
+    }
+
 }

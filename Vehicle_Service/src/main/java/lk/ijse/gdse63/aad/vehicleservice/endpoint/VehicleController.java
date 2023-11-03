@@ -31,7 +31,7 @@ public class VehicleController {
        return vehicleService.save(vehicleDto);
     }
 
-    @PutMapping(path = "/Vput",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = "Vput",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Response> update(@RequestBody Vehicle_dto vehicleDto){
         System.out.println("VehicleDto update working in vehicle");
         System.out.println(vehicleDto.toString());
@@ -51,19 +51,15 @@ public class VehicleController {
 
 //for package testing
 
-    @PostMapping("/getvehi")
-    public ResponseEntity <String> getAllVehicles(@RequestParam String id) {
-        // Return the data as a response
-        return ResponseEntity.ok(id);
+//    @PostMapping("/getvehi")
+//    public ResponseEntity <String> getAllVehicles(@RequestParam String id) {
+//        // Return the data as a response
+//        return ResponseEntity.ok(id);
+//    }
+
+
+    @GetMapping(path = "/getAllVehicles",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response>getAllGuides(){
+        return  vehicleService.getAll();
     }
-
-
-
-
-
-
-
-
-
-
 }
